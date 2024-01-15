@@ -9,6 +9,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import SearchScreen from "./screens/SearchScreen";
 
 export default function stackNavigator() {
   const Tab = createBottomTabNavigator();
@@ -92,6 +93,11 @@ export default function stackNavigator() {
           name="Main"
           component={BottomTabs}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          // options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
