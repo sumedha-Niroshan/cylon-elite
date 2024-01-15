@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "cylon-eligh",
-    "slug": "cylon-eligh",
+    "name": "cylon-elite",
+    "slug": "cylon-elite",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -26,5 +26,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
+   
   }
 }
