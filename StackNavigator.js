@@ -10,6 +10,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import SearchScreen from "./screens/SearchScreen";
+import PlaceScreen from "./screens/PlaceScreen";
 
 export default function stackNavigator() {
   const Tab = createBottomTabNavigator();
@@ -99,6 +100,7 @@ export default function stackNavigator() {
           component={SearchScreen}
           // options={{ headerShown: false }}
         />
+        <Stack.Screen name="Place" component={PlaceScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

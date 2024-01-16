@@ -6,6 +6,7 @@ import {
   View,
   SafeAreaView,
   TextInput,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import Headers from "../components/Headers";
@@ -21,12 +22,13 @@ import { ModalTitle } from "react-native-modals";
 import { SlideAnimation } from "react-native-modals";
 import { ModalContent } from "react-native-modals";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { Button } from "react-native";
 
 export default function HomeScreen() {
   const route = useRoute();
   const navigation = useNavigation();
   const [selectedDates, setSelectedDates] = useState();
-  const [room, setRooms] = useState(1);
+  const [rooms, setRooms] = useState(1);
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -54,6 +56,42 @@ export default function HomeScreen() {
       </Pressable>
     );
   };
+
+  const searchPlaces = (place) => {
+    if (!route.params || !selectedDates) {
+      Alert.alert(
+        "Invalid Details",
+        "Please enter all the details",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ],
+        { cancelable: false }
+      );
+    }
+
+    if (route.params && selectedDates) {
+      navigation.navigate("Place", {
+        rooms: rooms,
+        adults: adults,
+        children: children,
+        selectedDates: selectedDates,
+        place: place,
+      });
+    }
+
+    // // navigation.navigate("Place", {
+    // //   rooms: 2,
+    // //   adults: 2,
+    // //   children: 2,
+    // //   selectedDates: "2012/10/20",
+    // //   place: "kandy",
+    // });
+  };
   return (
     <>
       <SafeAreaView>
@@ -68,6 +106,7 @@ export default function HomeScreen() {
               >
                 <Octicons name="search" size={24} color="black" />
                 <TextInput
+                  style={{ fontSize: 20 }}
                   placeholderTextColor="black"
                   placeholder={
                     route?.params ? route.params.input : "Find Your Place"
@@ -92,6 +131,7 @@ export default function HomeScreen() {
                       alignItems: "center",
                       marginRight: "auto",
                       color: "black",
+                      fontSize: 20,
                     },
                     headerStyle: {
                       backgroundColor: "#06DAFF",
@@ -124,20 +164,34 @@ export default function HomeScreen() {
                   color="black"
                 />
                 <TextInput
+                  style={{ fontSize: 18 }}
                   placeholderTextColor="#06DAFF"
-                  placeholder={` ${room} room • ${adults} adults • ${children} Children`}
+                  placeholder={` ${rooms} room • ${adults} adults • ${children} Children`}
                 />
               </Pressable>
               {/* Search Button */}
               <View style={{ justifyContent: "center", alignItems: "center" }}>
-                <Pressable style={styles.searchButton}>
-                  <Text style={{fontSize:26 , fontWeight:"700"}}>Search</Text>
+                <Pressable
+                  style={styles.searchButton}
+                  onPress={() => searchPlaces(route?.params.input)}
+                >
+                  <Text style={{ fontSize: 26, fontWeight: "700" }}>
+                    Search
+                  </Text>
                 </Pressable>
               </View>
+            </View>
+            <View>
+              <Button
+                onPress={() => navigation.navigate("place")}
+                title="djq"
+              />
             </View>
           </ScrollView>
         </View>
       </SafeAreaView>
+
+      {/* {Modal start} */}
       <BottomModal
         swipeThreshold={200}
         onBackdropPress={() => setModalVisible(!modalVisible)}
@@ -186,8 +240,8 @@ export default function HomeScreen() {
                     color="black"
                   />
                 </Pressable>
-                <Text style={{ fontSize: 25 }}>{room}</Text>
-                <Pressable onPress={() => setRooms(Math.max(1, room - 1))}>
+                <Text style={{ fontSize: 25 }}>{rooms}</Text>
+                <Pressable onPress={() => setRooms(Math.max(1, rooms - 1))}>
                   <SimpleLineIcons name="minus" size={30} color="black" />
                 </Pressable>
               </View>
@@ -233,6 +287,7 @@ export default function HomeScreen() {
           </View>
         </ModalContent>
       </BottomModal>
+      {/* {Modal end} */}
     </>
   );
 }
@@ -258,7 +313,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#06DAFF",
     width: 196,
-    height:53,
-    borderRadius:30
+    height: 53,
+    borderRadius: 30,
   },
 });
