@@ -1,9 +1,11 @@
 import { SafeAreaView, StyleSheet, TextInput, View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useState ,useLayoutEffect } from "react";
 import { Octicons } from "@expo/vector-icons";
 import SearchResults from "../components/SearchResults";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SearchScreen() {
+  const navigation = useNavigation();
   const data = [
     {
       id: "0",
@@ -243,6 +245,24 @@ export default function SearchScreen() {
 
   const [input, setInput] = useState("");
   const [items, setItems] = useState([]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      title: "Search",
+      headerTitleStyle: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "white",
+      },
+      headerStyle: {
+        backgroundColor: "#06DAFF",
+        height: 110,
+        borderBottomColor: "transparent",
+        shadowColor: "transparent",
+      },
+    });
+  }, []);
 
   return (
     <SafeAreaView style={{ padding: 20 }}>

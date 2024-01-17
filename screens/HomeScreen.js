@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TextInput,
   Alert,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import Headers from "../components/Headers";
@@ -176,6 +177,45 @@ export default function HomeScreen() {
           </ScrollView>
         </View>
       </SafeAreaView>
+      <Text style={{ marginLeft: 20, fontWeight: "bold", fontSize: 35 }}>
+        For You
+      </Text>
+
+      <ScrollView horizontal={true} style={{backgroundColor:"#E7F3F5"}}>
+        <View style={{ padding: 20 }}>
+          <Image
+            style={{ height: 220, width: 220, borderRadius: 10 }}
+            source={{
+              uri: "https://www.tripsavvy.com/thmb/RezWjRg36RaF309_sn20psv3brA=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GettyImages-520870128-1c1f8305c37949ab967d13de38ddf9eb.jpg",
+            }}
+          />
+          <View style={{ display: "flex", marginLeft: 80 }}>
+            <Text style={{ fontWeight: "bold", fontSize: 23 }}>Galle</Text>
+          </View>
+        </View>
+        <View style={{ padding: 20 }}>
+          <Image
+            style={{ height: 220, width: 220, borderRadius: 10 }}
+            source={{
+              uri: "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/24/61/13.jpg",
+            }}
+          />
+          <View style={{ display: "flex", marginLeft: 80 }}>
+            <Text style={{ fontWeight: "bold", fontSize: 25 }}>Jaffna</Text>
+          </View>
+        </View>
+        <View style={{ padding: 20 }}>
+          <Image
+            style={{ height: 220, width: 220, borderRadius: 10 }}
+            source={{
+              uri: "https://www.tripsavvy.com/thmb/RezWjRg36RaF309_sn20psv3brA=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GettyImages-520870128-1c1f8305c37949ab967d13de38ddf9eb.jpg",
+            }}
+          />
+          <View style={{ display: "flex", marginLeft: 80 }}>
+            <Text style={{ fontWeight: "bold", fontSize: 25 }}>Mathara</Text>
+          </View>
+        </View>
+      </ScrollView>
 
       {/* {Modal start} */}
       <BottomModal
