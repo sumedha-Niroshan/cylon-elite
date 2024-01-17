@@ -5,15 +5,48 @@ import {
   KeyboardAvoidingView,
   TextInput,
   Pressable,
+  Alert	
 } from "react-native";
 import React, { useState } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth, db } from '../firebase';
+import { setDoc,doc } from 'firebase/firestore';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const navigation = useNavigation();
+
+  const register = () => {
+    if (email === "" || password === "" || phoneNumber === "") {
+      Alert.alert(
+        "Invalid Detials",
+        "Please enter all the credentials",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ],
+        { cancelable: false }
+      );
+    }
+    createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredentials) => {
+        const user = userCredentials._tokenResponse.email;
+        const uid = auth.currentUser.uid;
+
+        setDoc(doc(db, "users", `${uid}`), {
+          email: user,
+          phone: phoneNumber,
+        });
+      }
+    );
+  };
 
   return (
     <SafeAreaView
@@ -82,7 +115,7 @@ export default function LoginScreen() {
             }}
           />
         </View>
-        <Pressable>
+        <Pressable onPress={register}>
           <View
             style={{
               backgroundColor: "#06DAFF",
