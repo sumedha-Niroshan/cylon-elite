@@ -11,6 +11,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import SearchScreen from "./screens/SearchScreen";
 import PlaceScreen from "./screens/PlaceScreen";
+import PropertyInfoScreen from "./screens/PropertyInfoScreen";
+import UserScreen from "./screens/UserScreen";
 
 export default function stackNavigator() {
   const Tab = createBottomTabNavigator();
@@ -101,6 +103,8 @@ export default function stackNavigator() {
           // options={{ headerShown: false }}
         />
         <Stack.Screen name="Place" component={PlaceScreen} />
+        <Stack.Screen name="Info" component={PropertyInfoScreen} />
+        <Stack.Screen name="User" component={UserScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
