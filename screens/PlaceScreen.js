@@ -4,10 +4,20 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import ProperyCart from "../components/ProperyCart";
+import { BottomModal } from "react-native-modals";
+import { ModalFooter } from "react-native-modals";
+import { SlideAnimation } from "react-native-modals";
+import { ModalTitle } from "react-native-modals";
+import { FontAwesome } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { ModalContent } from "react-native-modals";
 
 export default function PlaceScreen() {
   const route = useRoute();
   const navigation = useNavigation();
+  const [modalVisibile, setModalVisibile] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState([]);
+  const [items, setItems] = useState([]);
 
   const data = [
     {
@@ -25,7 +35,7 @@ export default function PlaceScreen() {
             "https://cf.bstatic.com/xdata/images/hotel/square600/162908224.webp?k=b36f8730b47923ff35e36069bed053cb78934fc7510cee929fff52ff71d8e9a6&o=",
           rating: 3.6,
           address: "84, Peradeniya Road, Kandy, 20000 Kandy, Sri Lanka",
-          price: 4600,
+          price: 5600,
           review: 1980,
           latitude: "7.303164882910908",
           longitude: "80.63658522999788",
@@ -246,6 +256,57 @@ export default function PlaceScreen() {
     },
   ];
 
+  const searchPlaces = data?.filter(
+    (item) => item.place === route.params.place
+  );
+  const [sortedData, setSortedData] = useState(data);
+  console.log(searchPlaces);
+
+  const filters = [
+    {
+      id: "0",
+      filter: "cost:Low to High",
+    },
+    {
+      id: "1",
+      filter: "cost:High to Low",
+    },
+  ];
+
+  const compare = (a, b) => {
+    if (a.price > b.price) {
+      return -1;
+    }
+    if (a.price < b.price) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const comparision = (a, b) => {
+    if (a.price < b.price) {
+      return -1;
+    }
+    if (a.price > b.price) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const applyFilter = (filter) => {
+    setModalVisibile(false);
+    switch (filter) {
+      case "cost:High to Low":
+        searchPlaces.map((val) => val.properties.sort(compare));
+        setSortedData(searchPlaces);
+        break;
+      case "cost:Low to High":
+        searchPlaces.map((val) => val.properties.sort(comparision));
+        setSortedData(searchPlaces);
+        break;
+    }
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
@@ -267,7 +328,7 @@ export default function PlaceScreen() {
   return (
     <>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <Pressable>
+        <Pressable onPress={() => setModalVisibile(!modalVisibile)}>
           <MaterialCommunityIcons name="sort-variant" size={40} color="#555" />
         </Pressable>
         <Pressable>
@@ -282,8 +343,7 @@ export default function PlaceScreen() {
         </Pressable>
       </View>
       <ScrollView>
-    
-         {data
+        {sortedData
           ?.filter((item) => item.place === route.params.place)
           .map((item) =>
             item.properties.map((property, index) => (
@@ -299,8 +359,85 @@ export default function PlaceScreen() {
             ))
           )}
       </ScrollView>
+      <BottomModal
+        onBackdropPress={() => setModalVisibile(!modalVisibile)}
+        swipeDirection={["up", "down"]}
+        swipeThreshold={200}
+        footer={
+          <ModalFooter>
+            <Pressable
+              onPress={() => applyFilter(selectedFilter)}
+              style={{
+                paddingRight: 10,
+                marginLeft: "auto",
+                marginRight: "auto",
+                marginVertical: 10,
+                marginBottom: 30,
+                backgroundColor: "#06DAFF",
+                width: 150,
+                justifyContent: "center",
+                alignItems: "center",
+                height: 50,
+                borderRadius: 30,
+              }}
+            >
+              <Text style={{ fontSize: 25, color: "white" }}>Apply</Text>
+            </Pressable>
+          </ModalFooter>
+        }
+        modalTitle={<ModalTitle title="Sort and Filter" />}
+        modalAnimation={
+          new SlideAnimation({
+            slideFrom: "bottom",
+          })
+        }
+        onHardwareBackPress={() => setModalVisibile(!modalVisibile)}
+        visible={modalVisibile}
+        onTouchOutside={() => setModalVisibile(!modalVisibile)}
+      >
+        <ModalContent style={{ width: "100%", height: 180 }}>
+          <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                marginVertical: 10,
+                flex: 2,
+                height: 280,
+                borderRightWidth: 1,
+                borderColor: "#E0E0E0",
+              }}
+            >
+              <Text style={{ textAlign: "center", fontSize: 20 }}>Sort </Text>
+            </View>
+
+            <View style={{ flex: 3, margin: 10 }}>
+              {filters.map((item, index) => (
+                <Pressable
+                  onPress={() => setSelectedFilter(item.filter)}
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginVertical: 10,
+                    fontSize: 40,
+                  }}
+                  key={index}
+                >
+                  {selectedFilter.includes(item.filter) ? (
+                    <FontAwesome name="circle" size={18} color="#06DAFF" />
+                  ) : (
+                    <Entypo name="circle" size={18} color="black" />
+                  )}
+
+                  <Text
+                    style={{ fontSize: 16, fontWeight: "500", marginLeft: 6 }}
+                  >
+                    {item.filter}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+        </ModalContent>
+      </BottomModal>
     </>
   );
 }
-
-const styles = StyleSheet.create({});
