@@ -2,7 +2,8 @@ import { View, Text, Pressable } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Octicons } from "@expo/vector-icons";
-
+import { useDispatch } from "react-redux";
+import { savedPlaces } from "../store/Reducers/SavedReducer";
 
 export default function ConfirmationScreen() {
   const route = useRoute();
@@ -26,6 +27,12 @@ export default function ConfirmationScreen() {
     });
   }, []);
 
+  const dispatch = useDispatch();
+  const conformBooking = () => {
+    dispatch(savedPlaces(route.params));
+    navigation.replace("Main");
+  };
+
   return (
     <View>
       <Pressable style={{ backgroundColor: "#D9D9D9", margin: 10 }}>
@@ -41,12 +48,8 @@ export default function ConfirmationScreen() {
           <View>
             <Text style={{ fontSize: 25, fontWeight: "bold" }}>
               {route.params.name}
-              
             </Text>
-            <Text style={{ fontSize: 15,  }}>
-              {route.params.address}
-              
-            </Text>
+            <Text style={{ fontSize: 15 }}>{route.params.address}</Text>
             <View
               style={{
                 flexDirection: "row",
@@ -57,11 +60,8 @@ export default function ConfirmationScreen() {
             >
               <Octicons name="star-fill" size={24} color="yellow" />
               <Text>{route.params.rating}</Text>
-             
             </View>
           </View>
-
-          
         </View>
 
         <View
@@ -105,22 +105,23 @@ export default function ConfirmationScreen() {
         </View>
 
         <Pressable
+          onPress={conformBooking}
           style={{
             backgroundColor: "#06DAFF",
             width: 170,
-            height:50,
+            height: 50,
             padding: 5,
             marginHorizontal: 12,
             marginBottom: 20,
             borderRadius: 30,
-            alignItems:"center",
-            justifyContent:"center"
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Text
             style={{
               textAlign: "center",
-              
+
               fontSize: 20,
               fontWeight: "bold",
             }}

@@ -83,14 +83,6 @@ export default function HomeScreen() {
         place: place,
       });
     }
-
-    // // navigation.navigate("Place", {
-    // //   rooms: 2,
-    // //   adults: 2,
-    // //   children: 2,
-    // //   selectedDates: "2012/10/20",
-    // //   place: "kandy",
-    // });
   };
   return (
     <>
@@ -180,12 +172,6 @@ export default function HomeScreen() {
                   </Text>
                 </Pressable>
               </View>
-            </View>
-            <View>
-              <Button
-                onPress={() => navigation.navigate("place")}
-                title="djq"
-              />
             </View>
           </ScrollView>
         </View>
