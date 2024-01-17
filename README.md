@@ -5,14 +5,15 @@ Cylon Elight is a React Native mobile app designed to streamline hotel bookings.
 
 ## Features
 
--Search Hotels: Users can search for hotels based on their destination.
--Hotel Details: View detailed information about hotels, including photos, prices, and facilities.
--Sort by Price: Easily sort hotels based on price to find the best options.
--Guest Information: Specify the number of guests, children, and adults for more accurate room selection.
--Price Calculation: The app calculates the price for one night based on user input.
--Room Selection: Users can choose from various rooms available at the selected hotel.
--Booking: Securely book a room by providing personal details like name, email, and phone number.
--User Accounts: Bookings are saved in the user's account for easy reference.
+- **Search Hotels:** Find the perfect hotel in your desired destination.
+- **Hotel Details:** Explore comprehensive information about hotels, including photos, prices, and facilities.
+- **Sort by Price:** Easily compare and choose hotels based on price.
+- **Date Selection:** Effortlessly pick your stay dates using an integrated calendar.
+- **Guest Information:** Specify the number of guests, children, and adults for a personalized booking experience.
+- **Price Calculation:** Get an instant price calculation for your stay based on user input.
+- **Room Selection:** Choose from a variety of rooms available at the selected hotel.
+- **Booking:** Securely book your preferred room by providing your name, email, and phone number.
+- **User Accounts:** Access your booking history conveniently through your user account.
 
 ## Technologies Used
 
