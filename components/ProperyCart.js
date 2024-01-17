@@ -27,6 +27,7 @@ const PropertyCard = ({ rooms, children, property, adults, selectedDates }) => {
             children: children,
             rooms: rooms,
             selectedDates: selectedDates,
+            address:property.address
           })
         }
         style={{

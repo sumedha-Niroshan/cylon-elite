@@ -13,6 +13,7 @@ import SearchScreen from "./screens/SearchScreen";
 import PlaceScreen from "./screens/PlaceScreen";
 import PropertyInfoScreen from "./screens/PropertyInfoScreen";
 import UserScreen from "./screens/UserScreen";
+import ConfirmationScreen from "./screens/ConfirmationScreen";
 
 export default function stackNavigator() {
   const Tab = createBottomTabNavigator();
@@ -105,6 +106,7 @@ export default function stackNavigator() {
         <Stack.Screen name="Place" component={PlaceScreen} />
         <Stack.Screen name="Info" component={PropertyInfoScreen} />
         <Stack.Screen name="User" component={UserScreen} />
+        <Stack.Screen name="Confirmation" component={ConfirmationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

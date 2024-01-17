@@ -147,6 +147,7 @@ export default function PropertyInfoScreen() {
                   rating: route.params.rating,
                   startDate: route.params.selectedDates.startDate,
                   endDate: route.params.selectedDates.endDate,
+                  address:route.params.address
                 })
               }
               style={{
